@@ -1,7 +1,14 @@
-rock_library(plugin_manager
-    SOURCES Dummy.cpp
-    HEADERS Dummy.hpp)
+find_package(Boost COMPONENTS filesystem)
 
-rock_executable(plugin_manager_bin Main.cpp
-    DEPS plugin_manager)
+rock_library(plugin_manager
+    SOURCES PluginManager.cpp
+            PluginLoader.cpp
+            Demangle.cpp
+    HEADERS PluginInfo.hpp
+            PluginManager.hpp
+            PluginLoader.hpp
+            Exceptions.hpp
+            Demangle.hpp
+    DEPS_PKGCONFIG class_loader tinyxml base-types
+    DEPS_CMAKE Glog Boost)
 
