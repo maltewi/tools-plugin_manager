@@ -1,0 +1,15 @@
+<library path="plugin_manager_test_plugins">
+  <class class_name="plugin_manager::StringPlugin" base_class_name="plugin_manager::BaseClass">
+    <description>String plugin which is used in the unit tests of the plugin manager.</description>
+    <associations>
+        <class class_name="std::string"></class>
+    </associations>
+  </class>
+  <class class_name="plugin_manager::FloatPlugin" base_class_name="plugin_manager::BaseClass">
+    <description>Float plugin which is used in the unit tests of the plugin manager.</description>
+    <associations>
+        <class class_name="float"></class>
+    </associations>
+    <singleton>true</singleton>
+  </class>
+</library>
