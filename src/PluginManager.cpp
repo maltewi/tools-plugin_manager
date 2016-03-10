@@ -207,6 +207,11 @@ void PluginManager::clear()
     classes_no_ns_available.clear();
 }
 
+void PluginManager::overridePluginXmlPaths(const std::vector< std::string >& plugin_xml_paths)
+{
+    this->plugin_xml_paths = plugin_xml_paths;
+}
+
 void PluginManager::reloadXMLPluginFiles()
 {
     std::set<std::string> plugin_xml_files;

@@ -137,6 +137,13 @@ public:
     void clear();
 
     /**
+     * @brief Overrides the paths of the xml plugin informations.
+     *        This also removes all currently known paths.
+     * @param plugin_xml_paths to folders and xml files
+     */
+    void overridePluginXmlPaths(const std::vector<std::string>& plugin_xml_paths);
+
+    /**
      * @brief Loads all plugin informations found in the given xml plugin paths.
      */
     void reloadXMLPluginFiles();
