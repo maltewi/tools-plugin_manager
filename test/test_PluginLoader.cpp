@@ -42,23 +42,23 @@ BOOST_AUTO_TEST_CASE(plugin_loader_test)
 
     // create singleton instance
     {
-        boost::shared_ptr<FloatPlugin> flaot_plugin_a;
-        BOOST_CHECK((PluginLoader::getInstance()->createInstance<FloatPlugin, BaseClass>("FloatPlugin", flaot_plugin_a)));
-        flaot_plugin_a->data = 0;
-        BOOST_CHECK(flaot_plugin_a.use_count() == 2);
+        boost::shared_ptr<FloatPlugin> float_plugin_a;
+        BOOST_CHECK((PluginLoader::getInstance()->createInstance<FloatPlugin, BaseClass>("FloatPlugin", float_plugin_a)));
+        float_plugin_a->data = 0;
+        BOOST_CHECK(float_plugin_a.use_count() == 2);
 
-        boost::shared_ptr<FloatPlugin> flaot_plugin_b;
-        BOOST_CHECK((PluginLoader::getInstance()->createInstance<FloatPlugin, BaseClass>("FloatPlugin", flaot_plugin_b)));
-        flaot_plugin_b->data = 42;
+        boost::shared_ptr<FloatPlugin> float_plugin_b;
+        BOOST_CHECK((PluginLoader::getInstance()->createInstance<FloatPlugin, BaseClass>("FloatPlugin", float_plugin_b)));
+        float_plugin_b->data = 42;
 
-        BOOST_CHECK(flaot_plugin_a.get() == flaot_plugin_b.get());
-        BOOST_CHECK(flaot_plugin_a->data == flaot_plugin_b->data);
-        BOOST_CHECK(flaot_plugin_a.use_count() == 3);
+        BOOST_CHECK(float_plugin_a.get() == float_plugin_b.get());
+        BOOST_CHECK(float_plugin_a->data == float_plugin_b->data);
+        BOOST_CHECK(float_plugin_a.use_count() == 3);
     }
 
-    boost::shared_ptr<FloatPlugin> flaot_plugin;
-    BOOST_CHECK((PluginLoader::getInstance()->createInstance<FloatPlugin, BaseClass>("FloatPlugin", flaot_plugin)));
-    BOOST_CHECK(flaot_plugin->data == 42);
+    boost::shared_ptr<FloatPlugin> float_plugin;
+    BOOST_CHECK((PluginLoader::getInstance()->createInstance<FloatPlugin, BaseClass>("FloatPlugin", float_plugin)));
+    BOOST_CHECK(float_plugin->data == 42);
 
     // test down case exception
     boost::shared_ptr<FloatPlugin> string_plugin;
