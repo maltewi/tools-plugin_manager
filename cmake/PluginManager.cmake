@@ -1,5 +1,5 @@
 
-# Installs a plugin info .xml file to INSTALL_FOLDER/share/plugin_manager/
+# Installs a plugin info .xml file to INSTALL_FOLDER/lib/plugin_manager/
 function(install_plugin_info TARGET_NAME)
     if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${TARGET_NAME}.xml)
         file(GLOB plugin_files "${CMAKE_CURRENT_SOURCE_DIR}/${TARGET_NAME}.xml")
