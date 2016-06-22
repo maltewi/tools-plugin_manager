@@ -6,7 +6,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/noncopyable.hpp>
 #include <class_loader/class_loader.h>
-#include <base/Singleton.hpp>
+#include <base-logging/Singleton.hpp>
 #include <glog/logging.h>
 
 #include "PluginManager.hpp"

@@ -6,6 +6,7 @@
   <license></license>
   <url>http://</url>
   <logo>http://</logo>
+  <depend package="base/logging" />
   <depend package="tools/class_loader" />
   <depend package="glog" />
   <depend package="external/tinyxml" />
