@@ -155,6 +155,21 @@ protected:
     bool hasNamespace(const std::string& class_name) const;
 
     /**
+     * @brief Returns true if the given class name has a embedded type. E.g. Item<int>
+     */
+    bool hasEmbeddedType(const std::string& class_name) const;
+
+    /**
+     * @brief Returns the embedded type name of a class. E.g. int from Item<int>
+     */
+    std::string extractEmbeddedType(const std::string& class_name) const;
+
+    /**
+     * @brief Returns the base type name of a class. E.g. Item from Item<int>
+     */
+    std::string extractBaseType(const std::string& class_name) const;
+
+    /**
      * @brief Helper method that strips the namespace if available from the given class name
      * @param class_name the name of the plugin class
      * @return class name without namespace

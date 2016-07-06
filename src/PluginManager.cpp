@@ -379,21 +379,50 @@ void PluginManager::insertPluginInfos(const std::vector<PluginInfoPtr>& classes)
 
 bool PluginManager::hasNamespace(const std::string& class_name) const
 {
-    return class_name.find("::") != std::string::npos;
+    if(hasEmbeddedType(class_name))
+        return extractBaseType(class_name).find("::") != std::string::npos;
+    else
+        return class_name.find("::") != std::string::npos;
+}
+
+bool PluginManager::hasEmbeddedType(const std::string& class_name) const
+{
+    return class_name.find("<") != std::string::npos;
+}
+
+std::string PluginManager::extractEmbeddedType(const std::string& class_name) const
+{
+    return std::string(boost::end(boost::find_first(class_name, "<")), boost::begin(boost::find_last(class_name, ">")));
+}
+
+std::string PluginManager::extractBaseType(const std::string& class_name) const
+{
+    return std::string(class_name.begin(), boost::begin(boost::find_first(class_name, "<")));
 }
 
 std::string PluginManager::removeNamespace(const std::string& class_name) const
 {
-    std::vector<std::string> split_names;
-    boost::split(split_names, class_name, boost::is_any_of("::"));
-    if(!split_names.empty())
-    {
-        return split_names.back();
-    }
+    // remove embedded type if necessary
+    bool has_embedded_type = hasEmbeddedType(class_name);
+    std::string class_name_base;
+    if (has_embedded_type)
+        class_name_base = extractBaseType(class_name);
     else
-    {
-        return class_name;
-    }
+        class_name_base = class_name;
+
+    // remove namespace
+    std::string class_name_no_ns;
+    std::vector<std::string> split_names;
+    boost::split(split_names, class_name_base, boost::is_any_of("::"));
+    if(!split_names.empty())
+        class_name_no_ns = split_names.back();
+    else
+        class_name_no_ns = class_name;
+
+    if (has_embedded_type)
+        return class_name_no_ns + "<" + extractEmbeddedType(class_name) + ">";
+    else
+        return class_name_no_ns;
 }
 
 bool PluginManager::getFullClassName(const std::string& class_name, std::string& full_class_name) const
