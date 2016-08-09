@@ -92,6 +92,13 @@ protected:
      */
     void loadLibraryPaths();
 
+    /**
+     * @brief Loads the library of the given plugin class
+     * @param class_name name of the plugin class
+     * @return True if the library could be loaded
+     */
+    bool loadLibrary(const std::string& class_name);
+
 private:
 
     /**
@@ -106,13 +113,6 @@ private:
     void createInstanceIntern(const std::string& derived_class_name,
                                 const boost::shared_ptr<class_loader::ClassLoader>& loader,
                                 boost::shared_ptr< BaseClass >& instance);
-
-    /**
-     * @brief Loads the library of the given plugin class
-     * @param class_name name of the plugin class
-     * @return True if the library could be loaded
-     */
-    bool loadLibrary(const std::string& class_name);
 
 private:
     /** Mapping between library name and class loader instances */
