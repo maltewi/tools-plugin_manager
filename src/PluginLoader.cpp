@@ -75,6 +75,10 @@ bool PluginLoader::loadLibrary(const std::string& class_name)
         return false;
     }
 
+    // check if the library was already loaded
+    if(loaders.find(lib_name) != loaders.end())
+        return true;
+
     //try to load the plugin from all available paths
     for(const string& lib_path : library_paths)
     {
