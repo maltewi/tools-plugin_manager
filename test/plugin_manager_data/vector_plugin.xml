@@ -4,5 +4,9 @@
     <associations>
         <class class_name="Eigen::Vector3d"></class>
     </associations>
+    <meta>
+        Some user specific meta Information.
+        <user_tag frame_name="laser">Tags are parsable by a callback function.</user_tag>
+    </meta>
   </class>
 </library>

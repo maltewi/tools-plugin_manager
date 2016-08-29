@@ -9,7 +9,8 @@ using namespace plugin_manager;
 static const std::string plugin_files_path = "/plugin_manager/";
 static const std::string plugin_file_extension = ".xml";
 
-PluginManager::PluginManager(const std::vector< std::string >& plugin_xml_paths, bool load_environment_paths)
+PluginManager::PluginManager(const std::vector< std::string >& plugin_xml_paths,
+                             bool load_environment_paths, bool auto_load_xml_files)
 {
     std::copy(plugin_xml_paths.begin(), plugin_xml_paths.end(), std::back_inserter(this->plugin_xml_paths));
     if(load_environment_paths)
@@ -18,7 +19,8 @@ PluginManager::PluginManager(const std::vector< std::string >& plugin_xml_paths,
         std::copy(env_xml_paths.begin(), env_xml_paths.end(), std::back_inserter(this->plugin_xml_paths));
     }
 
-    reloadXMLPluginFiles();
+    if(auto_load_xml_files)
+        reloadXMLPluginFiles();
 }
 
 PluginManager::~PluginManager()
@@ -278,7 +280,7 @@ void PluginManager::determineAvailableXMLPluginFiles(const std::string& plugin_x
     }
 }
 
-bool PluginManager::processSingleXMLPluginFile(const std::string& xml_file, std::vector< PluginInfoPtr >& class_available) const
+bool PluginManager::processSingleXMLPluginFile(const std::string& xml_file, std::vector< PluginInfoPtr >& class_available)
 {
     TiXmlDocument document;
     document.LoadFile(xml_file);
@@ -344,6 +346,14 @@ bool PluginManager::processSingleXMLPluginFile(const std::string& xml_file, std:
                 if(singleton_element != NULL && strcmp(singleton_element->GetText(), "true") == 0)
                 {
                     plugin_info->singleton = true;
+                }
+
+                // find meta information
+                TiXmlElement* meta_element = class_element->FirstChildElement("meta");
+                if(meta_element != NULL)
+                {
+                    // parse user specific tags using a callback function
+                    this->parsePluginMetaInformation(plugin_info, meta_element);
                 }
 
                 class_available.push_back(plugin_info);
@@ -423,6 +433,11 @@ std::string PluginManager::removeNamespace(const std::string& class_name) const
         return class_name_no_ns + "<" + extractEmbeddedType(class_name) + ">";
     else
         return class_name_no_ns;
+}
+
+void PluginManager::parsePluginMetaInformation(const PluginInfoPtr& plugin_info, TiXmlElement* meta_element)
+{
+    // Can be implemented in inherited classes
 }
 
 bool PluginManager::getFullClassName(const std::string& class_name, std::string& full_class_name) const

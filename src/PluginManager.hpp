@@ -7,6 +7,8 @@
 #include <boost/shared_ptr.hpp>
 #include "PluginInfo.hpp"
 
+class TiXmlElement;
+
 namespace plugin_manager
 {
 
@@ -23,8 +25,10 @@ public:
      * @brief Constructor for PluginManager
      * @param plugin_xml_paths The list of paths of plugin.xml files
      * @param load_environment_paths true if environment path shall be loaded
+     * @param auto_load_xml_files if this is false reloadXMLPluginFiles must be triggered by a inherited class or manually
      */
-    PluginManager(const std::vector<std::string>& plugin_xml_paths = std::vector<std::string>(), bool load_environment_paths = true);
+    PluginManager(const std::vector<std::string>& plugin_xml_paths = std::vector<std::string>(),
+                  bool load_environment_paths = true, bool auto_load_xml_files = true);
 
     /**
      * @brief Destructor for PluginManager
@@ -134,7 +138,7 @@ public:
     /**
      * @brief Clears all plugin informations.
      */
-    void clear();
+    virtual void clear();
 
     /**
      * @brief Overrides the paths of the xml plugin informations.
@@ -176,6 +180,11 @@ protected:
      */
     std::string removeNamespace(const std::string& class_name) const;
 
+    /**
+     * @brief Can be overloaded to parse meta information related to a plugin.
+     */
+    virtual void parsePluginMetaInformation(const PluginInfoPtr& plugin_info, TiXmlElement* meta_element);
+
 private:
     /**
      * @brief Returns the paths in all install folders set by the environment.
@@ -196,7 +205,7 @@ private:
      * @param class_available A vector of all plugin infos found
      * @return True if xml was successfully parsed
      */
-    bool processSingleXMLPluginFile(const std::string& xml_file, std::vector<PluginInfoPtr>& class_available) const;
+    bool processSingleXMLPluginFile(const std::string& xml_file, std::vector<PluginInfoPtr>& class_available);
 
     /**
      * @brief Insert plugin infos to internal data structure

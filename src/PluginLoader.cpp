@@ -6,7 +6,7 @@
 using namespace plugin_manager;
 using namespace std;
 
-PluginLoader::PluginLoader() : PluginManager()
+PluginLoader::PluginLoader(bool auto_load_xml_files) : PluginManager(std::vector<std::string>(), true, auto_load_xml_files)
 {
     loadLibraryPaths();
 }

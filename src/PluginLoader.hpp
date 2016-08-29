@@ -78,8 +78,9 @@ protected:
     /**
      * @brief Constructor for PluginLoader
      * It is protected because this class is a singleton class.
+     * @param auto_load_xml_files if this is false reloadXMLPluginFiles must be triggered by a inherited class or manually
      */
-    PluginLoader();
+    PluginLoader(bool auto_load_xml_files = true);
 
     /**
      * @brief Destructor for PluginLoader
