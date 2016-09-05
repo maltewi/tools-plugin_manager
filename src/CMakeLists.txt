@@ -10,5 +10,8 @@ rock_library(plugin_manager
             Exceptions.hpp
             Demangle.hpp
     DEPS_PKGCONFIG class_loader tinyxml base-logging
-    DEPS_CMAKE Glog Boost)
+    DEPS_CMAKE Glog 
+    DEPS_PLAIN
+        Boost_FILESYSTEM
+)
 
