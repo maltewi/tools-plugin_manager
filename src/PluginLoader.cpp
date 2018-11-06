@@ -13,6 +13,7 @@ PluginLoader::PluginLoader(bool auto_load_xml_files) : PluginManager(std::vector
 
 PluginLoader::~PluginLoader()
 {
+    singletons.clear();
     loaders.clear();
 }
 
