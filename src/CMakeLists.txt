@@ -9,7 +9,7 @@ rock_library(plugin_manager
             PluginLoader.hpp
             Exceptions.hpp
             Demangle.hpp
-    DEPS_PKGCONFIG class_loader tinyxml base-logging
+    DEPS_PKGCONFIG class_loader tinyxml base-logging console_bridge
     DEPS_CMAKE Glog 
     DEPS_PLAIN
         Boost_FILESYSTEM
