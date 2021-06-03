@@ -3,7 +3,6 @@
 cmake_minimum_required(VERSION 2.6)
 set(ROCK_USE_CXX11 TRUE)
 find_package(Rock)
-set(ROCK_TEST_ENABLED ON)
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 rock_init(plugin_manager 0.1)
